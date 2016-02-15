@@ -33,4 +33,4 @@ library(cyclocomp)
 
 ## License
 
-MIT + file LICENSE © [Gabor Csardi](https://github.com/MangoTheCat).
+MIT © Mango Solutions
