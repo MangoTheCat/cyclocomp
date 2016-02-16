@@ -112,7 +112,7 @@ flowgraph <- function(expr) {
 
   walk_repeat <- function(x, id) {
     add_node(x, id, "repeat", last = id.1(id))
-    add_edges(id, id.1, id.1)
+    add_edges(id, id.1(id), id.1(id))
     walk_lang(x[[2]], id.1(id))
   }
 
