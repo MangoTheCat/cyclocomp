@@ -26,7 +26,7 @@ flowgraph <- function(expr) {
     id = "2",
     type = "exit"
   )
-  nodes$last <- list("2")
+  nodes$last <- list(character())
 
   ## The structure of the graph is stored here
   edges <- data.frame(
