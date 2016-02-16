@@ -141,10 +141,19 @@ flowgraph <- function(expr) {
   }
 
   walk_function <- function(x, id) {
-    add_node(x, id, "function", last = id.2(id))
-    add_edges(id, id.1(id), id.2(id))
-    walk_lang(formals(x), id.1(id))
-    walk_lang(body(x), id.2(id))
+    ## Function without an argument
+    if (is.null(formals(x))) {
+      add_node(x, id, "function", last = id.1(id))
+      add_edges(id, id.1(id))
+      walk_lang(body(x), id.1(id))
+
+    } else {
+    ## Function with arguments
+      add_node(x, id, "function", last = id.2(id))
+      add_edges(id, id.1(id), id.2(id))
+      walk_lang(formals(x), id.1(id))
+      walk_lang(body(x), id.2(id))
+    }
   }
 
   walk_list <- function(x, id) {
