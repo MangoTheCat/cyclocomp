@@ -10,7 +10,7 @@
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/MangoTheCat/cyclocomp?svg=true)](https://ci.appveyor.com/project/MangoTheCat/cyclocomp)
 [![](http://www.r-pkg.org/badges/version/cyclocomp)](http://www.r-pkg.org/pkg/cyclocomp)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/cyclocomp)](http://www.r-pkg.org/pkg/cyclocomp)
-
+[![Coverage Status](https://img.shields.io/codecov/c/github/MangoTheCat/cyclocomp/master.svg)](https://codecov.io/github/MangoTheCat/cyclocomp?branch=master)
 
 Cyclomatic complexity is a software metric (measurement), used to indicate
   the complexity of a program. It is a quantitative measure of the number of
