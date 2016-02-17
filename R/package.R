@@ -83,6 +83,10 @@ flowgraph <- function(expr) {
     } else if (is.call(x) && identical(x[[1]], quote(`if`)) && length(x) == 4) {
       walk_ifelse(x, id)
 
+    } else if (is.call(x) &&
+               (identical(x[[1]], quote(`&&`)) || identical(x[[1]], quote(`||`)))) {
+      walk_andor(x, id)
+
     } else if (is.function(x)) {
       walk_function(x, id)
 
@@ -138,6 +142,14 @@ flowgraph <- function(expr) {
     walk_lang(x[[2]], id.1(id))
     walk_lang(x[[3]], id.2(id))
     walk_lang(x[[4]], id.3(id))
+  }
+
+  walk_andor <- function(x, id) {
+    name <- as.character(x[[1]])
+    add_node(x, id, name, last = c(id.1(id), id.2(id)))
+    add_edges(id, id.1(id), id.2(id))
+    walk_lang(x[[2]], id.1(id))
+    walk_lang(x[[3]], id.2(id))
   }
 
   walk_function <- function(x, id) {
