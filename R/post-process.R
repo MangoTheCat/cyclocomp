@@ -37,7 +37,7 @@ post_process <- function(nodes, edges) {
       e <- e + 1
     }
   }
-  edges
+  unique(edges)
 }
 
 is_child <- function(child, parent) {
