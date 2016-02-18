@@ -1,8 +1,6 @@
 
 what_expr <- function(expr) {
-  if (is.function(expr)) {
-    "function"
-  } else if (is.call(expr)) {
+  if (is.call(expr)) {
     paste0(as.character(expr[[1]]), "()")
 
   } else {

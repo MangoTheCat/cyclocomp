@@ -253,8 +253,8 @@ flowgraph <- function(expr) {
   }
 
   walk_list <- function(x, id) {
-    x <- as.list(x)
     what <- what_expr(x)
+    x <- as.list(x)
     last <- if (length(x) == 0) character() else paste0(id, ".", length(x))
     add_node(x, id, what, last = last)
     if (length(x) != 0) {
