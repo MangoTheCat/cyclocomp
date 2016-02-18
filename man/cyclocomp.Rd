@@ -5,10 +5,73 @@
 \alias{cyclocomp}
 \alias{cyclocomp-package}
 \title{Cyclomatic Complecity of R Code}
+\usage{
+cyclocomp(expr)
+}
+\arguments{
+\item{expr}{An R function or expression.}
+}
+\value{
+Integer scalar, the cyclomatic complexity of the
+  expression.
+}
 \description{
 Cyclomatic complexity is a software metric (measurement), used to indicate
 the complexity of a program. It is a quantitative measure of the number of
 linearly independent paths through a program's source code. It was developed
 by Thomas J. McCabe, Sr. in 1976.
+
+Cyclomatic complexity is a software metric (measurement), used to indicate
+the complexity of a program. It is a quantitative measure of the number of
+linearly independent paths through a program's source code. It was developed
+by Thomas J. McCabe, Sr. in 1976.
+}
+\examples{
+## Supply a function
+cyclocomp(
+  function(arg) { calulate(this); and(that) }
+)
+cyclocomp(ls)
+
+## Or a quoted expression
+cyclocomp(quote( if (condition) "foo" else "bar" ))
+cyclocomp(quote( while (condition) { loop } ))
+
+## Complexity of individual control flow constructs
+cyclocomp(quote({
+  if (condition) this
+}))
+
+cyclocomp(quote({
+  if (condition) this else that
+}))
+
+cyclocomp(quote({
+  for (var in seq) expr
+}))
+
+cyclocomp(quote({
+  while (cond) expr
+}))
+
+cyclocomp(quote({
+  repeat expr
+}))
+
+cyclocomp(quote({
+  for (var in seq) {
+    this
+    break
+    that
+  }
+}))
+
+cyclocomp(quote({
+  for (var in seq) {
+    this
+    next
+    that
+  }
+}))
 }
 
