@@ -14,5 +14,5 @@ NULL
 
 cyclocomp <- function(expr) {
   fg <- flowgraph(expr)
-  nrow(fg$edges) - nrow(fg$nodes) + 2
+  nrow(fg$edges) - nrow(fg$nodes) + 2L
 }
