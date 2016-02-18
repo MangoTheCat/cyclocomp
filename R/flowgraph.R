@@ -28,6 +28,11 @@ flowgraph <- function(expr) {
     nodes <<- rbind(nodes, nr)
   }
 
+  add_to_last <- function(elem, id) {
+    w <- which(nodes$id == elem)
+    nodes$last[[w]] <<- c(nodes$last[[w]], id)
+  }
+
   add_edges <- function(...) {
     args <- list(...)
     for (a in seq_along(args)[-1]) {
@@ -40,6 +45,20 @@ flowgraph <- function(expr) {
         )
       )
     }
+  }
+  
+  loops <- character()
+
+  loops_push <- function(id) {
+    loops <<- c(loops, id)
+  }
+
+  loops_pop <- function() {
+    loops <<- head(loops, -1)
+  }
+
+  loops_tail <- function() {
+    tail(loops, 1)
   }
 
   walk_lang <- function(x, id) {
@@ -84,25 +103,35 @@ flowgraph <- function(expr) {
   walk_for <- function(x, id) {
     add_node(x, id, "for", last = c(id.1(id), id.2(id)))
     add_edges(id, id.1(id), id.2(id), id.2(id))
+
+    loops_push(id)
     walk_lang(x[[3]], id.1(id))
     walk_lang(x[[4]], id.2(id))
+    loops_pop()
   }
 
   walk_while <- function(x, id) {
     add_node(x, id, "while", last = c(id.1(id), id.2(id)))
     add_edges(id, id.1(id), id.2(id), id.1(id))
+
+    loops_push(id)
     walk_lang(x[[2]], id.1(id))
     walk_lang(x[[3]], id.2(id))
+    loops_pop()
   }
 
   walk_repeat <- function(x, id) {
     add_node(x, id, "repeat", last = id.1(id))
     add_edges(id, id.1(id), id.1(id))
+
+    loops_push(id)
     walk_lang(x[[2]], id.1(id))
+    loops_pop()
   }
 
   walk_break <- function(x, id) {
     add_node(x, id, "break")
+    add_to_last(loops_tail(), id)
   }
 
   walk_next <- function(x, id) {
