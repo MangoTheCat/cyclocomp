@@ -46,21 +46,34 @@ flowgraph <- function(expr) {
       )
     }
   }
-  
-  loops <- character()
 
-  loops_push <- function(id) {
-    loops <<- c(loops, id)
+  breaks <- character()
+
+  breaks_push <- function(id) {
+    breaks <<- c(breaks, id)
   }
 
-  loops_pop <- function() {
-    loops <<- head(loops, -1)
+  breaks_pop <- function() {
+    breaks <<- head(breaks, -1)
   }
 
-  loops_tail <- function() {
-    tail(loops, 1)
+  breaks_tail <- function() {
+    tail(breaks, 1)
   }
 
+  nexts <- character()
+
+  nexts_push <- function(id) {
+    nexts <<- c(nexts, id)
+  }
+
+  nexts_pop <- function() {
+    nexts <<- head(nexts, -1)
+  }
+
+  nexts_tail <- function() {
+    tail(nexts, 1)
+  }
   walk_lang <- function(x, id) {
 
     if (is.call(x) && identical(x[[1]], quote(`for`))) {
@@ -104,38 +117,49 @@ flowgraph <- function(expr) {
     add_node(x, id, "for", last = c(id.1(id), id.2(id)))
     add_edges(id, id.1(id), id.2(id), id.2(id))
 
-    loops_push(id)
+    ## Don't add the loop here because we might break
+    ## in the vector expression. So only after that.
     walk_lang(x[[3]], id.1(id))
+    breaks_push(id)
+    nexts_push(id.2(id))
     walk_lang(x[[4]], id.2(id))
-    loops_pop()
+    breaks_pop()
+    nexts_pop()
   }
 
   walk_while <- function(x, id) {
     add_node(x, id, "while", last = c(id.1(id), id.2(id)))
     add_edges(id, id.1(id), id.2(id), id.1(id))
 
-    loops_push(id)
+    ## Don't add the loop here because we might break
+    ## loop condition. So only after that.
     walk_lang(x[[2]], id.1(id))
+    breaks_push(id)
+    nexts_push(id.1(id))
     walk_lang(x[[3]], id.2(id))
-    loops_pop()
+    breaks_pop()
+    nexts_pop()
   }
 
   walk_repeat <- function(x, id) {
     add_node(x, id, "repeat", last = id.1(id))
     add_edges(id, id.1(id), id.1(id))
 
-    loops_push(id)
+    breaks_push(id)
+    nexts_push(id.1(id))
     walk_lang(x[[2]], id.1(id))
-    loops_pop()
+    breaks_pop()
+    nexts_pop()
   }
 
   walk_break <- function(x, id) {
     add_node(x, id, "break")
-    add_to_last(loops_tail(), id)
+    add_to_last(breaks_tail(), id)
   }
 
   walk_next <- function(x, id) {
     add_node(x, id, "next")
+    add_edges(id, nexts_tail())
   }
 
   walk_if <- function(x, id) {
@@ -189,7 +213,7 @@ flowgraph <- function(expr) {
       walk_lang(x[[i]], paste0(id, ".", i))
     }
   }
-  
+
   walk_lang(expr, id = "1")
 
   edges <- post_process(nodes, edges)
