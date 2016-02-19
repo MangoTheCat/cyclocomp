@@ -21,6 +21,7 @@ NULL
 #' @return Integer scalar, the cyclomatic complexity of the
 #'   expression.
 #' @export
+#' @family cyclomatic complexity
 #'
 #' @examples
 #' ## Supply a function
@@ -74,4 +75,30 @@ NULL
 cyclocomp <- function(expr) {
   fg <- flowgraph(expr)
   nrow(fg$edges) - nrow(fg$nodes) + 2L
+}
+
+#' Cyclomatic complexity of the objects in an installed package
+#'
+#' Note that the package must be installed.
+#'
+#' @param package Package name, character scalar.
+#' @return Data frame with two columns: \code{name} and \code{cyclocomp}.
+#'
+#' @family cyclomatic complexity
+#' @export
+#' @examples
+#' ## They might take a while to run
+#' \donttest{
+#' cyclocomp_package("grDevices")
+#' cyclocomp_package("methods")
+#' }
+
+cyclocomp_package <- function(package) {
+  names <- ls(asNamespace(package))
+  cc <- vapply(names, function(n) cyclocomp(get(n, asNamespace(package))), 1L)
+  data.frame(
+    stringsAsFactors = FALSE,
+    name = unname(names),
+    cyclocomp = unname(cc)
+  )
 }
