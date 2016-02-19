@@ -36,6 +36,97 @@ devtools::install_github("MangoTheCat/cyclocomp")
 library(cyclocomp)
 ```
 
+`cyclocomp` takes quoted R expressions or function objects,
+and returns a single integer, the cyclomatic complexity of the
+expression or function.
+
+```{r}
+cyclocomp(quote( if (condition) "foo" else "bar" ))
+cyclocomp(quote( while (condition) { loop } ))
+```
+
+```{r}
+cyclocomp(
+  function(arg) { calulate(this); and(that) }
+)
+cyclocomp(ls)
+cyclocomp(cyclocomp)
+```
+
+Some more examples for the R control structures. A simple `if`
+first:
+
+```{r}
+cyclocomp(quote({
+  if (condition) this
+}))
+```
+
+An `if` with an `else` branch:
+
+```{r}
+cyclocomp(quote({
+  if (condition) this else that
+}))
+  ```
+
+Loops:
+
+```{r}
+cyclocomp(quote({
+  for (var in seq) expr
+}))
+```
+
+```{r}
+cyclocomp(quote({
+  while (cond) expr
+}))
+```
+
+```{r}
+cyclocomp(quote({
+  repeat expr
+}))
+```
+
+`break` and `next` statements add to the complexity:
+
+```{r}
+cyclocomp(quote({
+  for (var in seq) {
+    this
+    break
+    that
+  }
+}))
+```
+
+```{r}
+cyclocomp(quote({
+  for (var in seq) {
+    this
+    next
+    that
+  }
+}))
+```
+
+Multiple (explicit or implicit) `return` calls also add to the
+complexity:
+
+```{r}
+f <- function(arg) {
+  if (arg) {
+    return("this")
+  } else {
+    return("that")
+  }
+}
+cyclocomp(f)
+```
+
+
 ## License
 
 MIT © Mango Solutions
