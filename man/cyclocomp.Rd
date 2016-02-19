@@ -32,6 +32,7 @@ cyclocomp(
   function(arg) { calulate(this); and(that) }
 )
 cyclocomp(ls)
+cyclocomp(cyclocomp)
 
 ## Or a quoted expression
 cyclocomp(quote( if (condition) "foo" else "bar" ))
