@@ -1,51 +1,44 @@
 
 flowgraph <- function(expr) {
 
-  ## 'last' is a list (composite?) column, and we need to
-  ## add it separately, because data.frame() cannot handle it.
-  nodes <- data.frame(
-    stringsAsFactors = FALSE,
-    id = "2",
-    type = "exit"
+  prealloc <- 4000
+
+  num_nodes <- 0
+  nodes <- list(
+    id = rep("", prealloc),
+    type = rep("", prealloc)
   )
-  nodes$last <- list(character())
+  nodeslast <- replicate(prealloc, character())
 
   ## The structure of the graph is stored here
-  edges <- data.frame(
-    stringsAsFactors = FALSE,
-    from = "1",
-    to = "2"
+  num_edges <- 0
+  edges <- list(
+    from = rep("", prealloc),
+    to = rep("", prealloc)
   )
 
   add_node <- function(x, id, type, last = character()) {
-    nr <- data.frame(
-      stringsAsFactors = FALSE,
-      id = id,
-      type = type
-    )
-
-    nr$last <- list(last)
-    nodes <<- rbind(nodes, nr)
+    num_nodes <<- num_nodes + 1
+    nodes$id[num_nodes] <<- id
+    nodes$type[num_nodes] <<- type
+    nodeslast[[num_nodes]] <<- last
   }
 
   add_to_last <- function(elem, id) {
     w <- which(nodes$id == elem)
-    nodes$last[[w]] <<- c(nodes$last[[w]], id)
+    nodeslast[[w]] <<- c(nodeslast[[w]], id)
   }
 
   add_edges <- function(...) {
-    args <- list(...)
-    for (a in seq_along(args)[-1]) {
-      edges <<- rbind(
-        edges,
-        data.frame(
-          stringsAsFactors = FALSE,
-          from = args[[a - 1]],
-          to = args[[a]]
-        )
-      )
-    }
+    args <- unlist(list(...))
+    n <- length(args) - 1
+    edges$from[num_edges + (1:n)] <<- head(args, -1)
+    edges$to[num_edges + (1:n)]   <<- tail(args, -1)
+    num_edges <<- num_edges + n
   }
+
+  add_node(NULL, "2", "exit")
+  add_edges("1", "2")
 
   breaks <- character()
 
@@ -267,6 +260,13 @@ flowgraph <- function(expr) {
   }
 
   walk_lang(expr, id = "1")
+
+  nodes <- lapply(nodes, head, num_nodes)
+  edges <- lapply(edges, head, num_edges)
+
+  nodes <- as.data.frame(stringsAsFactors = FALSE, nodes)
+  nodes$last <- head(nodeslast, num_nodes)
+  edges <- as.data.frame(stringsAsFactors = FALSE, edges)
 
   edges <- post_process(nodes, edges)
   nodes <- nodes[, names(nodes) != "last"]
