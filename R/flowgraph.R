@@ -1,4 +1,6 @@
 
+#' @importFrom utils head tail
+
 flowgraph <- function(expr) {
 
   prealloc <- 4000
