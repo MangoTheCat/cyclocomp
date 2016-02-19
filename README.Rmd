@@ -122,6 +122,7 @@ f <- function(arg) {
   } else {
     return("that")
   }
+  "Otherwise return me"
 }
 cyclocomp(f)
 ```
