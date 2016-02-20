@@ -4,7 +4,7 @@
 \name{cyclocomp}
 \alias{cyclocomp}
 \alias{cyclocomp-package}
-\title{Cyclomatic Complecity of R Code}
+\title{Cyclomatic Complexity of R Code}
 \usage{
 cyclocomp(expr)
 }

@@ -1,5 +1,5 @@
 Package: cyclocomp
-Title: Cyclomatic Complecity of R Code
+Title: Cyclomatic Complexity of R Code
 Version: 1.0.0
 Author: Gabor Csardi
 Maintainer: Gabor Csardi <gcsardi@mango-solutions.com>

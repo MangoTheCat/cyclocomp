@@ -1,5 +1,5 @@
 
-#' Cyclomatic Complecity of R Code
+#' Cyclomatic Complexity of R Code
 #'
 #' Cyclomatic complexity is a software metric (measurement), used to indicate
 #' the complexity of a program. It is a quantitative measure of the number of
@@ -10,7 +10,7 @@
 #' @name cyclocomp
 NULL
 
-#' Cyclomatic Complecity of R Code
+#' Cyclomatic Complexity of R Code
 #'
 #' Cyclomatic complexity is a software metric (measurement), used to indicate
 #' the complexity of a program. It is a quantitative measure of the number of
