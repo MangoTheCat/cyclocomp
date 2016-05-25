@@ -33,7 +33,9 @@ NULL
 #' 
 #' ## Or a quoted expression
 #' cyclocomp(quote( if (condition) "foo" else "bar" ))
-#' cyclocomp(quote( while (condition) { loop } ))
+#' 
+#' ## cyclocomp_q quotes the expression for you
+#' cyclocomp_q(while (condition) { loop })
 #'
 #' ## Complexity of individual control flow constructs
 #' cyclocomp(quote({
@@ -101,4 +103,9 @@ cyclocomp_package <- function(package) {
     name = unname(names),
     cyclocomp = unname(cc)
   )
+}
+
+#' @rdname cyclocomp
+cyclocomp_q <- function(expr) {
+  cyclocomp(substitute(expr))
 }
