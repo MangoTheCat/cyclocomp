@@ -94,11 +94,12 @@ cyclocomp <- function(expr) {
 cyclocomp_package <- function(package) {
   names <- ls(asNamespace(package))
   cc <- vapply(names, function(n) cyclocomp(get(n, asNamespace(package))), 1L)
-  data.frame(
+  d <- data.frame(
     stringsAsFactors = FALSE,
     name = unname(names),
     cyclocomp = unname(cc)
   )
+  d[order(d$cyclocomp, decreasing = TRUE), ]
 }
 
 #' @rdname cyclocomp
