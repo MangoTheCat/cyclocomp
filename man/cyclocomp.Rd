@@ -4,9 +4,12 @@
 \name{cyclocomp}
 \alias{cyclocomp}
 \alias{cyclocomp-package}
+\alias{cyclocomp_q}
 \title{Cyclomatic Complexity of R Code}
 \usage{
 cyclocomp(expr)
+
+cyclocomp_q(expr)
 }
 \arguments{
 \item{expr}{An R function or expression.}
@@ -21,10 +24,7 @@ the complexity of a program. It is a quantitative measure of the number of
 linearly independent paths through a program's source code. It was developed
 by Thomas J. McCabe, Sr. in 1976.
 
-Cyclomatic complexity is a software metric (measurement), used to indicate
-the complexity of a program. It is a quantitative measure of the number of
-linearly independent paths through a program's source code. It was developed
-by Thomas J. McCabe, Sr. in 1976.
+Calculate the cyclomatic complexity of an R function or expression.
 }
 \examples{
 ## Supply a function
@@ -36,7 +36,9 @@ cyclocomp(cyclocomp)
 
 ## Or a quoted expression
 cyclocomp(quote( if (condition) "foo" else "bar" ))
-cyclocomp(quote( while (condition) { loop } ))
+
+## cyclocomp_q quotes the expression for you
+cyclocomp_q(while (condition) { loop })
 
 ## Complexity of individual control flow constructs
 cyclocomp(quote({
