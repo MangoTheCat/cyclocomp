@@ -2,5 +2,6 @@
 
 export(cyclocomp)
 export(cyclocomp_package)
+export(cyclocomp_q)
 importFrom(utils,head)
 importFrom(utils,tail)

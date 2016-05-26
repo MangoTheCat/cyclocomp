@@ -103,6 +103,7 @@ cyclocomp_package <- function(package) {
 }
 
 #' @rdname cyclocomp
+#' @export
 cyclocomp_q <- function(expr) {
   cyclocomp(substitute(expr))
 }
