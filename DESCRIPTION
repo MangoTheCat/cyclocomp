@@ -11,6 +11,15 @@ License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/MangoTheCat/cyclocomp
 BugReports: https://github.com/MangoTheCat/cyclocomp/issues
+Imports:
+    callr,
+    crayon,
+    desc,
+    remotes,
+    withr
 Suggests:
     testthat
+Remotes:
+    MangoTheCat/callr,
+    MangoTheCat/remotes
 RoxygenNote: 5.0.1
