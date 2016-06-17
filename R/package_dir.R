@@ -1,4 +1,13 @@
 
+#' Cyclomatic complexity of a local package
+#'
+#' Automatically builds the package and installs it to a temporary
+#' directory.
+#'
+#' @param path Path to the root directory of the R package.
+#' @return Data frame with two columns: \code{name} and \code{cyclocomp}.
+#'
+#' @family cyclomatic complexity
 #' @importFrom remotes install_local
 #' @importFrom callr r
 #' @importFrom desc desc_get

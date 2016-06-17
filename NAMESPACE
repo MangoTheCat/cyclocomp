@@ -2,6 +2,7 @@
 
 export(cyclocomp)
 export(cyclocomp_package)
+export(cyclocomp_package_dir)
 export(cyclocomp_q)
 importFrom(callr,r)
 importFrom(callr,rcmd_safe)

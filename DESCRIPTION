@@ -1,6 +1,6 @@
 Package: cyclocomp
 Title: Cyclomatic Complexity of R Code
-Version: 1.0.0
+Version: 1.1.0
 Author: Gabor Csardi
 Maintainer: Gabor Csardi <gcsardi@mango-solutions.com>
 Description: Cyclomatic complexity is a software metric (measurement),

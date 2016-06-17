@@ -23,6 +23,7 @@ cyclocomp_package("methods")
 }
 }
 \seealso{
-Other cyclomatic.complexity: \code{\link{cyclocomp}}
+Other cyclomatic.complexity: \code{\link{cyclocomp_package_dir}},
+  \code{\link{cyclocomp}}
 }
 

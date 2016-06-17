@@ -78,6 +78,7 @@ cyclocomp(quote({
 }))
 }
 \seealso{
-Other cyclomatic.complexity: \code{\link{cyclocomp_package}}
+Other cyclomatic.complexity: \code{\link{cyclocomp_package_dir}},
+  \code{\link{cyclocomp_package}}
 }
 
