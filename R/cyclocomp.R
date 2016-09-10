@@ -86,7 +86,7 @@ cyclocomp <- function(expr) {
 #' @export
 #' @examples
 #' ## They might take a while to run
-#' \donttest{
+#' \dontrun{
 #' cyclocomp_package("grDevices")
 #' cyclocomp_package("methods")
 #' }
