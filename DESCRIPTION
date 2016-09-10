@@ -19,7 +19,4 @@ Imports:
     withr
 Suggests:
     testthat
-Remotes:
-    MangoTheCat/callr,
-    MangoTheCat/remotes
 RoxygenNote: 5.0.1
