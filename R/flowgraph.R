@@ -28,7 +28,11 @@ flowgraph <- function(expr) {
 
   add_to_last <- function(elem, id) {
     w <- which(nodes$id == elem)
-    nodeslast[[w]] <<- c(nodeslast[[w]], id)
+    if (length(w) == 1L) {
+      nodeslast[[w]] <<- c(nodeslast[[w]], id)
+    } else {
+      warning(paste0("elem was '", elem, "' at id '", id, "'"))
+    }
   }
 
   add_edges <- function(...) {
