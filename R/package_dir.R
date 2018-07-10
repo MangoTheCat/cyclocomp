@@ -8,7 +8,7 @@
 #' @return Data frame with two columns: \code{name} and \code{cyclocomp}.
 #'
 #' @family cyclomatic complexity
-#' @importFrom remotes install_local
+#' @importFrom devtools install_local
 #' @importFrom callr r
 #' @importFrom desc desc_get
 #' @export

@@ -15,7 +15,7 @@ Imports:
     callr,
     crayon,
     desc,
-    remotes,
+    devtools,
     withr
 Suggests:
     testthat
