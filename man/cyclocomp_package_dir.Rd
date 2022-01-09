@@ -17,7 +17,8 @@ Automatically builds the package and installs it to a temporary
 directory.
 }
 \seealso{
-Other cyclomatic.complexity: \code{\link{cyclocomp_package}},
-  \code{\link{cyclocomp}}
+Other cyclomatic complexity: 
+\code{\link{cyclocomp_package}()},
+\code{\link{cyclocomp}()}
 }
-
+\concept{cyclomatic complexity}

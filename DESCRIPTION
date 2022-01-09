@@ -12,11 +12,10 @@ LazyData: true
 URL: https://github.com/MangoTheCat/cyclocomp
 BugReports: https://github.com/MangoTheCat/cyclocomp/issues
 Imports:
-    callr,
     crayon,
     desc,
     remotes,
     withr
 Suggests:
     testthat
-RoxygenNote: 5.0.1
+RoxygenNote: 7.1.2
