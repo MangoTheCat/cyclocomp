@@ -12,10 +12,7 @@
 #' @importFrom desc desc_get
 #' @export
 cyclocomp_package_dir <- function(path = ".") {
-  tmp <- tempfile()
-  dir.create(tmp)
-  on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
-
+  tmp <- withr::local_tempdir()
   pkgname <- desc_get("Package", file = file.path(path, "DESCRIPTION"))
 
   install_local(path, lib = tmp)
